@@ -15,6 +15,7 @@ public class MapperDanhMuc implements RowMapper<Danh_Muc>{
 		danh_Muc.setMeta_name(rs.getString("meta_name"));
 		danh_Muc.setNgay_tao(rs.getTimestamp("ngay_tao"));
 		danh_Muc.setTrang_thai(rs.getByte("trang_thai"));
+		danh_Muc.setHinh_anh(rs.getString("hinh_anh"));
 		return danh_Muc;
 	}
 }

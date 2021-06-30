@@ -1,4 +1,5 @@
 eclipse.preferences.version=1
 encoding//src/main/java/ShopSpringMVC/Controller/User/UserController.java=UTF-8
 encoding//src/main/java/ShopSpringMVC/Dao/CouponDao.java=UTF-8
+encoding//src/main/java/ShopSpringMVC/Dao/DanhMucDao.java=UTF-8
 encoding//src/main/java/ShopSpringMVC/Dao/SanPhamDao.java=UTF-8

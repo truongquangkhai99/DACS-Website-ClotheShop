@@ -36,7 +36,7 @@ public class SanPhamDao extends BaseDao {
 		sql.append(" INNER JOIN mau_sac AS ms ");
 		sql.append(" ON p.id_san_pham = ms.id_san_pham ");
 		sql.append(" WHERE p.trang_thai = 1 ");
-		
+
 		return sql;
 	}
 
@@ -61,6 +61,8 @@ public class SanPhamDao extends BaseDao {
 		sql.append("AND 1=1 ");
 		sql.append("AND p.id_danh_muc = " + id);
 		sql.append(" GROUP BY p.id_san_pham, ms.id_san_pham ");
+		// test
+		// sql.append("LIMIT 8");
 		return sql;
 	}
 
@@ -70,7 +72,7 @@ public class SanPhamDao extends BaseDao {
 		return list;
 	}
 
-	//San pham lien quan (trang chi-tiet-sp)
+	// San pham lien quan (trang chi-tiet-sp)
 	private StringBuffer SqlSanPhamTheoLoai_2(int id) {
 		StringBuffer sql = SqlString();
 		sql.append("AND 1=1 ");
@@ -79,14 +81,14 @@ public class SanPhamDao extends BaseDao {
 		sql.append(" ORDER BY RAND() ");
 		sql.append(" LIMIT 5 ");
 		return sql;
-	}					
-			
+	}
+
 	public List<SanPhamDto> GetDataSanPhamTheoLoai_2(int id) {
 		String sql = SqlSanPhamTheoLoai_2(id).toString();
 		List<SanPhamDto> list = _jdbcTemplate.query(sql, new MapperSanPhamDto());
 		return list;
 	}
-	
+
 	// phan trang
 	private String SqlSanPhamPaginates(int id, int start, int totalPage) {
 		StringBuffer sql = SqlSanPhamTheoLoai(id);
@@ -102,11 +104,11 @@ public class SanPhamDao extends BaseDao {
 		if (listSPById.size() > 0) {
 			String sql = SqlSanPhamPaginates(id, start, totalPage);
 			listSP = _jdbcTemplate.query(sql, new MapperSanPhamDto());
-		}	
+		}
 		return listSP;
 	}
 
-	//chitietsanpham
+	// chitietsanpham
 	private String SqlSanPhamById(int id) {
 		StringBuffer sql = SqlString();
 		sql.append("AND 1=1 ");
@@ -114,50 +116,104 @@ public class SanPhamDao extends BaseDao {
 		sql.append("LIMIT 1 ");
 		return sql.toString();
 	}
-	
+
 	public List<SanPhamDto> GetSanPhamById(int id) {
 		String sql = SqlSanPhamById(id);
 		List<SanPhamDto> listSanPham = _jdbcTemplate.query(sql.toString(), new MapperSanPhamDto());
 		return listSanPham;
 	}
+
+	// Lay san pham ra muc "Co the ban thich"
+	private String SqlSanPham_4() {
+		StringBuffer sql = SqlString();
+		sql.append("GROUP BY p.id_san_pham, ms.id_san_pham ");
+		sql.append("ORDER BY RAND() ");
+		sql.append("LIMIT 4");
+		return sql.toString();
+	}
+
+	public List<SanPhamDto> GetDataSanPham_4() {
+		String sql = SqlSanPham_4();
+		List<SanPhamDto> list = _jdbcTemplate.query(sql, new MapperSanPhamDto());
+		return list;
+	}
+
+	// tim 1 san pham
+
+	public SanPhamDto FindSanPhamById(int id) {
+		String sql = SqlSanPhamById(id);
+		SanPhamDto sanpham = _jdbcTemplate.queryForObject(sql, new MapperSanPhamDto());
+		return sanpham;
+	}
+
+	// start//API
+	// SP Noi bat - Trang Chu
+	private String SqlSPNoiBat() {
+		StringBuffer sql = SqlString();
+		sql.append("AND 1=1 ");
+		sql.append("AND p.san_pham_moi = 1 ");
+		sql.append("GROUP BY p.id_san_pham, ms.id_san_pham ");
+		sql.append("ORDER BY RAND() ");
+		sql.append("LIMIT 8");
+		return sql.toString();
+	}
+
+	public List<SanPhamDto> GetDataSPNoiBat() {
+		String sql = SqlSPNoiBat();
+		List<SanPhamDto> list = _jdbcTemplate.query(sql, new MapperSanPhamDto());
+		return list;
+	}
+
+	// SP Moi -Trang chu
+	private String SqlSPMoi() {
+		StringBuffer sql = SqlString();
+		sql.append("AND 1=1 ");
+		sql.append("AND p.noi_bat = 1 ");
+		sql.append("GROUP BY p.id_san_pham, ms.id_san_pham ");
+		sql.append("ORDER BY RAND() ");
+		sql.append("LIMIT 8");
+		return sql.toString();
+	}
+
+	public List<SanPhamDto> GetDataSPMoi() {
+		String sql = SqlSPMoi();
+		List<SanPhamDto> list = _jdbcTemplate.query(sql, new MapperSanPhamDto());
+		return list;
+	}
+
+	// Lay san pham ra muc "Co the ban thich"
+	private String SqlSanPham_8() {
+		StringBuffer sql = SqlString();
+		sql.append("GROUP BY p.id_san_pham, ms.id_san_pham ");
+		sql.append("ORDER BY RAND() ");
+		sql.append("LIMIT 8");
+		return sql.toString();
+	}
+
+	public List<SanPhamDto> GetDataSanPham_8() {
+		String sql = SqlSanPham_8();
+		List<SanPhamDto> list = _jdbcTemplate.query(sql, new MapperSanPhamDto());
+		return list;
+	}
 	
-	//Lay san pham ra muc "Co the ban thich"
-		private String SqlSanPham_4() {
-			StringBuffer sql = SqlString();
-			sql.append("GROUP BY p.id_san_pham, ms.id_san_pham ");
-			sql.append("ORDER BY RAND() ");
-			sql.append("LIMIT 4");
+	// Lay san pham ra muc "Co the ban thich"
+		private String SqlTimKiem(String text) {
+			StringBuffer sql = new StringBuffer();
+			sql.append(" SELECT id_san_pham  ");
+			sql.append(" FROM `san_pham`  ");
+			sql.append(" WHERE 1 = 1 ");
+			sql.append(" AND ten_san_pham ");
+			sql.append(" LIKE '%" + text +"%' ");
 			return sql.toString();
 		}
-
-		public List<SanPhamDto> GetDataSanPham_4() {
-			String sql = SqlSanPham_4();
+		
+	
+		public List<SanPhamDto> GetDataTimKiem() {
+			String sql = SqlSanPham_8();
 			List<SanPhamDto> list = _jdbcTemplate.query(sql, new MapperSanPhamDto());
 			return list;
 		}
 	
-	//tim 1 san pham
-	
-		public SanPhamDto FindSanPhamById(int id) {
-			String sql = SqlSanPhamById(id);
-			SanPhamDto sanpham = _jdbcTemplate.queryForObject(sql, new MapperSanPhamDto());
-			return sanpham;
-		}
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
+	// end//API
+
 }

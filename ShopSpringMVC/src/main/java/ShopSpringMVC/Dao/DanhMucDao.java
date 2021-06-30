@@ -6,7 +6,9 @@ import java.util.List;
 import org.springframework.stereotype.Repository;
 
 import ShopSpringMVC.Entity.Danh_Muc;
+import ShopSpringMVC.Entity.Danh_Muc_Cha;
 import ShopSpringMVC.Entity.MapperDanhMuc;
+import ShopSpringMVC.Entity.MapperDanhMucCha;
 
 @Repository
 public class DanhMucDao extends BaseDao{
@@ -18,7 +20,7 @@ public class DanhMucDao extends BaseDao{
 		return list;
 	}
 	////////////////////////////////////////////////////////////
-	//Lay id_danh_muc_cha khi bam vao danh muc con treen menu
+	//Lay id_danh_muc_cha khi bam vao danh muc con treen menu //(api)
 	private String SqlID_DMC(int id) {
 		StringBuffer sql = new StringBuffer();
 		sql.append(" SELECT * ");
@@ -36,4 +38,17 @@ public class DanhMucDao extends BaseDao{
 
 	/////////////////////////////////////////////////////////////
 	
+	
+	//API
+	public List<Danh_Muc_Cha> GetDataDanhMucCha() {
+		List<Danh_Muc_Cha> list = new ArrayList<Danh_Muc_Cha>();
+		String sql = " SELECT * FROM danh_muc_cha";
+		list = _jdbcTemplate.query(sql, new MapperDanhMucCha());
+		return list;
+	}
+	
+	//su dung lại 1 hàm ở tren
+	
+	
+	//API-end
 }

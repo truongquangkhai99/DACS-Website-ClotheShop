@@ -9,6 +9,7 @@ public class Danh_Muc {
 	private String meta_name;
 	private Timestamp ngay_tao;
 	private byte trang_thai;
+	private String hinh_anh;
 	
 
 	public Danh_Muc() {
@@ -17,7 +18,7 @@ public class Danh_Muc {
 
 
 	public Danh_Muc(int id_danh_muc, int id_danh_muc_cha, String ten_danh_muc, String meta_name, Timestamp ngay_tao,
-			byte trang_thai) {
+			byte trang_thai,String hinh_anh) {
 		super();
 		this.id_danh_muc = id_danh_muc;
 		this.id_danh_muc_cha = id_danh_muc_cha;
@@ -25,6 +26,7 @@ public class Danh_Muc {
 		this.meta_name = meta_name;
 		this.ngay_tao = ngay_tao;
 		this.trang_thai = trang_thai;
+		this.hinh_anh = hinh_anh;
 	}
 
 
@@ -85,6 +87,16 @@ public class Danh_Muc {
 
 	public void setTrang_thai(byte trang_thai) {
 		this.trang_thai = trang_thai;
+	}
+
+
+	public String getHinh_anh() {
+		return hinh_anh;
+	}
+
+
+	public void setHinh_anh(String hinh_anh) {
+		this.hinh_anh = hinh_anh;
 	}
 
 	
